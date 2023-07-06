@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Definition of type-annotated function"""
+import typing
 
 
-def sum_list(input_list: list[float]) -> float:
+def sum_list(input_list: typing.List[float]) -> float:
     """
     Takes a list of floating numbers,
     sums them then returns a float

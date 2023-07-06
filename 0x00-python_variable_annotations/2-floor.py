@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Definition of a type-annotated function"""
-
 import math
 
 
