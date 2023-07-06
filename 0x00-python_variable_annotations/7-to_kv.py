@@ -3,11 +3,11 @@
 import typing
 
 
-def to_kv(k: str, v: typing.Union[int, float]) -> tuple:
+def to_kv(k: str, v: typing.Union[int, float]) -> typing.Tuple[str, float]:
     """
     takes two args and returns a tuple
     containing the args
     """
 
-    myTuple: typing.Tuple[typing.Union[str, float], ...] = (k, v * v)
+    myTuple: typing.Tuple[str, float] = (k, v * v)
     return myTuple
