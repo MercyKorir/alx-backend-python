@@ -4,19 +4,18 @@ import typing
 
 
 def zoom_array(
-        lst: typing.Union[typing.Tuple[typing.Any, ...],
-                          typing.List[typing.Any]],
+        lst: typing.Tuple,
         factor: int = 2
-        ) -> typing.Tuple[typing.Any, ...]:
+        ) -> typing.List:
     """
     Takes in a 2 args and returns a Tuple
     """
 
-    zoomed_in: typing.List[typing.Any] = [
+    zoomed_in: typing.List = [
         item for item in lst
         for i in range(factor)
     ]
-    return tuple(zoomed_in)
+    return zoomed_in
 
 
 array = [12, 72, 91]
