@@ -29,4 +29,4 @@ class TestAccessNestedMap(unittest.TestCase):
         with self.assertRaises(KeyError) as ex:
             access_nested_map(nested_map, path)
         self.assertEqual(str(ex.exception),
-                         "Key {} not found in {}".format(path[-1], nested_map))
+                         "'{}'".format(path[-1]))
