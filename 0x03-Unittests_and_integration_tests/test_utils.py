@@ -37,15 +37,19 @@ class TestGetJson(unittest.TestCase):
     """Inherits from TestCase"""
 
     @unittest.mock.patch('requests.get')
-    def test_get_json(self, mock_get: unittest.mock.Mock) -> None:
+    def test_get_json(self, mock_get):
         """Test for get_json"""
 
-        test_cases = [
+        vals = [
             ('http://example.com', {'payload': True}),
             ('http://holberton.io', {'payload': False})
         ]
-        for test_url, test_payload in test_cases:
-            mock_get.return_value.json.return_value = test_payload
-            res = get_json(test_url)
-            mock_get.assert_called_with(test_url)
-            self.assertEqual(res, test_payload)
+        for test_url, test_payload in vals:
+            with self.subTest(test_url=test_url, test_payload=test_payload):
+                mock_res = unittest.mock.Mock()
+                mock_res.json.return_value = test_payload
+                mock_get.return_value = mock_res
+                res = get_json(test_url)
+                self.assertEqual(res, test_payload)
+                mock_get.assert_called_once_with(test_url)
+                mock_get.reset_mock()
