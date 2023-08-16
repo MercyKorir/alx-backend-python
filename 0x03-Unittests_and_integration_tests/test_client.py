@@ -5,7 +5,7 @@ from unittest import mock
 from unittest.mock import patch, PropertyMock
 from parameterized import parameterized
 from client import GithubOrgClient
-from typing import Any
+from typing import Any, Dict
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -60,3 +60,14 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(repos, ['repoA'])
             mru.assert_called_once_with()
             mock_get_json.assert_called_once_with('https://test.google.com')
+
+    @parameterized.expand([
+        ({'license': {'key': 'my_license'}}, 'my_license', True),
+        ({'license': {'key': 'other_license'}}, 'my_license', False),
+    ])
+    def test_has_license(self, repo: Dict[str, Dict],
+                         key: str, expected_val: bool) -> None:
+        """Test for has_license method"""
+
+        res = GithubOrgClient.has_license(repo, key)
+        self.assertEqual(res, expected_val)
