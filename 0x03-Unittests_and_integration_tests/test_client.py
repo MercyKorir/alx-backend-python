@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Definition of a class TestGithubOrgClient"""
 import unittest
-from unittest.mock import patch
+from unittest import mock
+from unittest.mock import patch, PropertyMock
 from parameterized import parameterized
 from client import GithubOrgClient
 from typing import Any
@@ -28,3 +29,16 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(res, test_val)
         link = 'https://api.github.com/orgs/'
         mock_get_json.assert_called_once_with('{}{}'.format(link, name))
+
+    @patch.object(GithubOrgClient, 'org', new_callable=PropertyMock)
+    def test_public_repos_url(self, mock_org: PropertyMock) -> None:
+        """Test for _public_repos_url property"""
+
+        payload = {
+            'name': 'google',
+            'repos_url': 'https://api.github.com/orgs/google/repos',
+        }
+        mock_org.return_value = payload
+        client = GithubOrgClient('google')
+        self.assertEqual(client._public_repos_url, payload['repos_url'])
+        mock_org.assert_called_once_with()
